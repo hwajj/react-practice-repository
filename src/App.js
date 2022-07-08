@@ -8,7 +8,8 @@ function App() {
 		'Git revert로 커밋 되돌리기',
 		'Git reset으로 커밋 삭제하기',
 	]);
-	let [like, setLike] = useState(0);
+	let [likeArr, setLike] = useState([0, 0, 0]);
+
 	return (
 		<>
 			<div className="blog">
@@ -40,31 +41,28 @@ function App() {
 				</div>
 
 				<div className="lists">
-					<div className="list">
-						<h4>
-							{blogList[0]}
-							<span
-								onClick={() => {
-									setLike(like + 1);
-								}}
-							>
-								👍
-							</span>{' '}
-							{like}
-						</h4>
-						<p>2022/06/05</p>
-					</div>
+					{blogList.map((item, idx) => {
+						return (
+							<div className="list" key={idx}>
+								<h4 className="pointer" onClick={() => setModal(!modal)}>
+									{item}
+									<span
+										onClick={() => {
+											let copyLike = [...likeArr];
+											copyLike[idx]++;
 
-					<div className="list">
-						<h4>{blogList[1]}</h4>
-						<p>2022/06/03</p>
-					</div>
-					<div className="list ">
-						<h4 className="pointer" onClick={() => setModal(!modal)}>
-							{blogList[2]}
-						</h4>
-						<p>2022/06/01</p>
-					</div>
+											setLike(copyLike);
+										}}
+									>
+										👍
+									</span>{' '}
+									{likeArr[idx]}
+								</h4>
+
+								<p>2022/06/01</p>
+							</div>
+						);
+					})}
 				</div>
 				{modal ? <Modal></Modal> : null}
 			</div>
