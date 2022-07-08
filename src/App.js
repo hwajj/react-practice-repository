@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+	let [modal, setModal] = useState(false);
 	let [blogList, setBlogList] = useState([
 		'미디어쿼리를 배워보자',
 		'Git revert로 커밋 되돌리기',
@@ -58,12 +59,14 @@ function App() {
 						<h4>{blogList[1]}</h4>
 						<p>2022/06/03</p>
 					</div>
-					<div className="list">
-						<h4>{blogList[2]}</h4>
+					<div className="list ">
+						<h4 className="pointer" onClick={() => setModal(!modal)}>
+							{blogList[2]}
+						</h4>
 						<p>2022/06/01</p>
 					</div>
 				</div>
-				<Modal></Modal>
+				{modal ? <Modal></Modal> : null}
 			</div>
 		</>
 	);
