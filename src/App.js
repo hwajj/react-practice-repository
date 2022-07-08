@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+	let [clickedIdx, setClickedIdx] = useState(0);
 	let [modal, setModal] = useState(false);
 	let [blogList, setBlogList] = useState([
 		'미디어쿼리를 배워보자',
@@ -44,7 +45,13 @@ function App() {
 					{blogList.map((item, idx) => {
 						return (
 							<div className="list" key={idx}>
-								<h4 className="pointer" onClick={() => setModal(!modal)}>
+								<h4
+									className="pointer"
+									onClick={() => {
+										setClickedIdx(idx);
+										setModal(true);
+									}}
+								>
 									{item}
 									<span
 										onClick={() => {
@@ -55,7 +62,7 @@ function App() {
 										}}
 									>
 										👍
-									</span>{' '}
+									</span>
 									{likeArr[idx]}
 								</h4>
 
@@ -64,16 +71,16 @@ function App() {
 						);
 					})}
 				</div>
-				{modal ? <Modal></Modal> : null}
+				{modal ? <Modal clickedIdx={clickedIdx} blogList={blogList} /> : null}
 			</div>
 		</>
 	);
 }
 
-function Modal() {
+function Modal(props) {
 	return (
 		<div className="modal h-100">
-			<h4>제목</h4>
+			<h4>{props.blogList[props.clickedIdx]}</h4>
 			<p>날짜</p>
 			<p>상세내용</p>
 		</div>
