@@ -10,6 +10,13 @@ function App() {
 		'Git reset으로 커밋 삭제하기',
 	]);
 	let [likeArr, setLike] = useState([0, 0, 0]);
+	let [content, setContent] = useState('');
+
+	let addPost = () => {
+		let copy = [...blogList];
+		copy.unshift(content);
+		setBlogList(copy);
+	};
 
 	return (
 		<>
@@ -18,61 +25,62 @@ function App() {
 					<h4>My Blog</h4>
 					<div></div>
 				</div>
-				<div className="button-container">
-					<button
-						onClick={() => {
-							let copy = [...blogList];
-
-							copy.sort();
-							setBlogList(copy);
-						}}
-					>
-						가나다 순 정렬 버튼
-					</button>
-
-					<button
-						onClick={() => {
-							let copy = [...blogList];
-							copy[0] = '부트스트랩으로 반응형 웹디자인만들기';
-							setBlogList(copy);
-						}}
-					>
-						버튼
-					</button>
-				</div>
 
 				<div className="lists">
 					{blogList.map((item, idx) => {
 						return (
 							<div className="list" key={idx}>
-								<h4
-									className="pointer"
-									onClick={() => {
-										setClickedIdx(idx);
-										setModal(true);
-									}}
-								>
-									{item}
-									<span
+								<div>
+									<h4
+										className="pointer"
 										onClick={() => {
-											let copyLike = [...likeArr];
-											copyLike[idx]++;
-
-											setLike(copyLike);
+											setClickedIdx(idx);
+											setModal(true);
 										}}
 									>
-										👍
-									</span>
-									{likeArr[idx]}
-								</h4>
+										{item}
+										<span
+											onClick={() => {
+												let copyLike = [...likeArr];
+												copyLike[idx]++;
+												setLike(copyLike);
+											}}
+										>
+											👍
+										</span>
+										{likeArr[idx]}
+									</h4>
 
-								<p>2022/06/01</p>
+									<p>2022/06/01</p>
+								</div>
+								<button
+									onClick={() => {
+										let copyList = [...blogList];
+										copyList.splice(idx, 1);
+										setBlogList(copyList);
+									}}
+								>
+									삭제
+								</button>
 							</div>
 						);
 					})}
 				</div>
-				{modal ? <Modal clickedIdx={clickedIdx} blogList={blogList} /> : null}
+				<div className="input-container">
+					<input
+						onInput={(e) => {
+							setContent(e.target.value);
+						}}
+						onKeyPress={(e) => {
+							if (e.key === 'Enter') {
+								addPost();
+							}
+						}}
+					/>
+					<button onClick={addPost}>글발행</button>
+				</div>
 			</div>
+			{modal ? <Modal clickedIdx={clickedIdx} blogList={blogList} /> : null}
 		</>
 	);
 }
@@ -82,7 +90,7 @@ function Modal(props) {
 		<div className="modal h-100">
 			<h4>{props.blogList[props.clickedIdx]}</h4>
 			<p>날짜</p>
-			<p>상세내용</p>
+			<p>내용</p>
 		</div>
 	);
 }
