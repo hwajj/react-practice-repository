@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 import Card from './Card';
+import Detail from './pages/Detail';
 function App() {
   let item_arr = [
     {
@@ -29,25 +31,38 @@ function App() {
     },
   ];
   return (
-    <div>
+    <div className='App'>
       <Navbar bg='dark' variant='dark'>
         <Container>
-          <Navbar.Brand href='#home'>Navbar</Navbar.Brand>
           <Nav className='me-auto'>
-            <Nav.Link href='#home'>Home</Nav.Link>
-            <Nav.Link href='#features'>Features</Nav.Link>
-            <Nav.Link href='#pricing'>Pricing</Nav.Link>
+            <Link className='nav-link navbar-brand' to='/'>
+              홈
+            </Link>
+            <Link className='nav-link' to='/detail'>
+              상세페이지
+            </Link>
           </Nav>
         </Container>
       </Navbar>
-      <div className='main-bg'></div>
-      <div className='container'>
-        <div className='row'>
-          {item_arr.map((e) => {
-            return <Card item={e} />;
-          })}
-        </div>
-      </div>
+
+      <Routes>
+        <Route
+          path='/'
+          element={
+            <>
+              <div className='main-bg'></div>
+              <div className='container'>
+                <div className='row'>
+                  {item_arr.map((e) => {
+                    return <Card item={e} />;
+                  })}
+                </div>
+              </div>
+            </>
+          }
+        />
+        <Route path='/detail' element={<Detail />} />
+      </Routes>
     </div>
   );
 }
