@@ -1,8 +1,33 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
-
+import Card from './Card';
 function App() {
+  let item_arr = [
+    {
+      id: 0,
+      title: 'White and Black',
+      content: 'Born in France',
+      price: 120000,
+      src: 'shoes1.jpeg',
+    },
+
+    {
+      id: 1,
+      title: 'Red Knit',
+      content: 'Born in Seoul',
+      price: 110000,
+      src: 'shoes2.jpeg',
+    },
+
+    {
+      id: 2,
+      title: 'Grey Yordan',
+      content: 'Born in the States',
+      price: 130000,
+      src: 'shoes3.jpeg',
+    },
+  ];
   return (
     <div>
       <Navbar bg='dark' variant='dark'>
@@ -18,25 +43,9 @@ function App() {
       <div className='main-bg'></div>
       <div className='container'>
         <div className='row'>
-          <div className='col-md-4'>
-            <img
-              src={`${process.env.PUBLIC_URL}/assets/shoes1.jpeg`}
-              width='80%'
-              alt='신발1'
-            />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
-          <div className='col-md-4'>
-            <img src={`/assets/shoes2.jpeg`} width='80%' alt='신발1' />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
-          <div className='col-md-4'>
-            <img src={`assets/shoes3.jpeg`} width='80%' alt='신발1' />
-            <h4>상품명</h4>
-            <p>상품정보</p>
-          </div>
+          {item_arr.map((e) => {
+            return <Card item={e} />;
+          })}
         </div>
       </div>
     </div>
