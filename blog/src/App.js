@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.css';
-
 function App() {
 	let [clickedIdx, setClickedIdx] = useState(0);
 	let [modal, setModal] = useState(false);
@@ -17,7 +16,6 @@ function App() {
 		copy.unshift(content);
 		setBlogList(copy);
 	};
-
 	return (
 		<>
 			<div className="blog">
@@ -80,10 +78,13 @@ function App() {
 					<button onClick={addPost}>글발행</button>
 				</div>
 			</div>
+
 			{modal ? <Modal clickedIdx={clickedIdx} blogList={blogList} /> : null}
 		</>
 	);
 }
+
+export default App;
 
 function Modal(props) {
 	return (
@@ -94,5 +95,3 @@ function Modal(props) {
 		</div>
 	);
 }
-
-export default App;
