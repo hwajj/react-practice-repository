@@ -10,11 +10,8 @@ import shoes_data from './data.js';
 function App() {
   let [shoes, setSheos] = useState(shoes_data);
   let [titleArrange, setTitleArrange] = useState(false);
-  console.log(shoes);
   let navigate = useNavigate();
-  let tmpShoes = [...shoes];
 
-  console.log(tmpShoes);
   return (
     <div className='App'>
       <Navbar bg='dark' variant='dark'>
