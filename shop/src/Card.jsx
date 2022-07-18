@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import styles from './Card.module.css';
 
 function Card(props) {
   const { id, title, content } = props.item;
@@ -11,7 +11,7 @@ function Card(props) {
         width='80%'
         alt={content}
       />
-      <h4>{title}</h4>
+      <h4 className={styles.yellow_black}>{title}</h4>
       <p>{content}</p>
     </div>
   );
