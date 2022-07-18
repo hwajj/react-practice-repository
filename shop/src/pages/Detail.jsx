@@ -1,6 +1,16 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
+let StyledBtn = styled.button`
+  background: ${(props) => props.bg};
+  color: ${(props) => props.color};
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid ${(props) => props.color};
+  width: 100px;
+`;
 function Detail(props) {
   let { id } = useParams();
   console.log(id);
@@ -17,13 +27,19 @@ function Detail(props) {
             alt=''
           />
         </div>
-        <div className='col-md-6 mt-4'>
-          <h4 className='pt5'>{shoes.title}</h4>
+        <div className='col-md-6 mt-4s'>
+          <h4 className='pt-5'>{shoes.title}</h4>
           <p>{shoes.detail}</p>
           <p>{shoes.price}원</p>
-          <button className='btn btn-danger'>주문하기</button>
+          <StyledBtn bg='white' color='blue'>
+            장바구니
+          </StyledBtn>
+          <StyledBtn bg='blue' color='white'>
+            바로 주문
+          </StyledBtn>
         </div>
       </div>
+      <div></div>
     </div>
   );
 }
