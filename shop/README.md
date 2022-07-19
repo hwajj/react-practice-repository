@@ -72,43 +72,99 @@
   ); 
   ```         
 
-### 페이지 나누기 & 링크 
+### Routes
 - 
   ``` 
   function App(){
     return (
-      {/*중략*/}
+      <Navbar/>
       <Routes>
-        <Route path="/main" element={
-            <>
-              {메인화면}
-            </>
-            } 
-         />
+        <Route path="/main" element={<Main/>} />
         <Route path="/detail" element={ <Detail/> } />
+        <Route path="*" element={ <div> 없는 페이지 입니다. </div> } />
+        <Route>
       </Routes>
     )
   }
   export default App;
+  export default App;
   ``` 
-          
+- <Navbar/> 컴포넌트는 페이지 주소에 상관없이 보이고, 
+  /main 접속시에는 <Main/> 페이지만, /detail  접속시에는 <Detail/> 페이지만 보임
+- path="*" 으로 하면 404 페이지 보여준다.(정해진 url 외 경로에 대한 페이지)
+  
 ### Link
 - html의 a 태그 역할
 - 부트스트랩의 클래스명 사용하면 Link 태그 꾸밀 수 있다
   ``` 
   function App(){
     return (
-       <Link className='nav-link navbar-brand' to='/'>
-              홈
-        /Link>
+      <Link className='nav-link navbar-brand' to='/'>
+        홈
+      /Link>
       {/*중략*/}
-        <Link className='nav-link' to='/detail'>
-              상세페이지
-            </Link>
-     
+      <Link className='nav-link' to='/detail'>
+        상세페이지
+      </Link>    
     )
   }
   export default App;
   ``` 
 
+### useNavigate
+- 페이지 이동 도와와주는 hook(함수)
+- a
+  ``` 
+  let navigate = useNavigate();
+  <Nav.Link onClick={() => {navigate('./detail');}}>
+    상세페이지로 이동
+  </Nav.Link>
+  <Nav.Link onClick={() => {navigate(-1);}}>
+    뒤로가기
+  </Nav.Link>
+  ``` 
 
+### nested Routes
+- 
+  ```
+  <Route path="/about" element={ <About/> } >  
+    <Route path="member" element={ <div>멤버</div> } />
+    <Route path="location" element={ <div>위치정보</div> } />
+  </Route>
+  ```
+  ```
+  function About() {
+    return (
+      <div>
+        <h4>About 페이지</h4>
+        <Outlet/>
+      </div>
+
+    )
+
+  }
+  ```  
+- About 컴포넌트의 <Outlet/> 의 위치에 nesting된 페이지가 보여진다. 
+- /about/member 로 들어가면 <About/> 컴포넌트 안에 <div>멤버</div> 들어가있다. 
+
+
+### Route parameter와 useParams
+- App.jsx
+  ```
+    <Route path='/detail/:id/:brand' element={<Detail shoes={shoes} />} />
+  ```
+- Detail.jsx
+  ``` 
+    import { useParams, Link } from 'react-router-dom';
+
+    function Detail(props) {
+      let { id, brand } = useParams();
+      return (
+        <>
+          <div>props.shoes[id].title</div>
+        </>
+      )
+    }
+  ```
+- useParam 이라는 훅을 사용해서 url 파라미터 정보에 부합하는 데이터를 보여줄 수 있다.
+- 파라미터는 여러 개 사용할 수 있다.

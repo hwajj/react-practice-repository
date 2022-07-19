@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 let StyledBtn = styled.button`
@@ -28,8 +28,6 @@ function Detail(props) {
   let [count, setCount] = useState(2);
 
   useEffect(() => {
-    console.log('안녕');
-
     setTimeout(() => {
       setHide(true);
     }, 2000);

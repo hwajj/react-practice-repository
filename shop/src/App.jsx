@@ -63,10 +63,23 @@ function App() {
                           a.title > b.title ? 1 : b.title > a.title ? -1 : 0
                         )
                         .map((e, i) => {
-                          return <Card item={e} key={i} />;
+                          return (
+                            <>
+                              <Link to={`/detail/${e.id}`} className='col-md-4'>
+                                <Card item={e} key={i} />
+                              </Link>
+                            </>
+                          );
                         })
                     : shoes.map((e, i) => {
-                        return <Card item={e} key={i} />;
+                        return (
+                          <>
+                            {console.log(e.id)}
+                            <Link to={`/detail/${e.id}`} className='col-md-4'>
+                              <Card item={e} key={i} />
+                            </Link>
+                          </>
+                        );
                       })}
                 </div>
               </div>
