@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Nav } from 'react-bootstrap';
 
 let StyledBtn = styled.button`
   background: ${(props) => props.bg};
@@ -26,6 +27,7 @@ let DiscountBox = styled.div`
 function Detail(props) {
   let [hide, setHide] = useState(false);
   let [count, setCount] = useState(2);
+  let [tabNum, setTabNum] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
@@ -74,8 +76,48 @@ function Detail(props) {
           </StyledBtn>
         </div>
       </div>
+      <Nav variant='tabs' defaultActiveKey='link0'>
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTabNum(0);
+            }}
+            eventKey='link0'
+          >
+            버튼0
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTabNum(1);
+            }}
+            eventKey='link1'
+          >
+            버튼1
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link
+            onClick={() => {
+              setTabNum(2);
+            }}
+            eventKey='link2'
+          >
+            버튼2
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <TabComponent num={tabNum} />
     </div>
   );
 }
 
 export default Detail;
+
+function TabComponent({ num }) {
+  // if (num === 0) return <div>내용0</div>;
+  // if (num === 1) return <div>내용1</div>;
+  // if (num === 2) return <div>내용2</div>;
+  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][num];
+}
