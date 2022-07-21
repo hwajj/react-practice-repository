@@ -116,8 +116,25 @@ function Detail(props) {
 export default Detail;
 
 function TabComponent({ num }) {
+  let [classNm, setClassNm] = useState('');
   // if (num === 0) return <div>내용0</div>;
   // if (num === 1) return <div>내용1</div>;
   // if (num === 2) return <div>내용2</div>;
-  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][num];
+  useEffect(() => {
+    let a = setTimeout(() => {
+      setClassNm('end');
+    }, 10);
+    return () => {
+      clearTimeout(a);
+      setClassNm('');
+    };
+  }, [num]);
+
+  return (
+    <>
+      <div className={`start ${classNm}`}>
+        {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][num]};
+      </div>
+    </>
+  );
 }
