@@ -6,6 +6,7 @@ import Card from './Card';
 import Detail from './pages/Detail';
 import About from './pages/About';
 import shoes_data from './data.js';
+import axios from 'axios';
 
 function App() {
   let [shoes, setSheos] = useState(shoes_data);
@@ -82,6 +83,26 @@ function App() {
                         );
                       })}
                 </div>
+                <Button
+                  className='my-2 mx-4'
+                  onClick={() => {
+                    axios
+                      .get('https://codingapple1.github.io/shop/data2.json')
+                      .then((result) => {
+                        let tmpSheos = [...shoes];
+                        let idList = tmpSheos.map((e) => e.id);
+                        let newShoes = result.data.filter(
+                          (e) => idList.indexOf(e.id) < 0
+                        );
+                        setSheos([...tmpSheos, ...newShoes]);
+                      })
+                      .catch(() => {
+                        console.log(shoes);
+                      });
+                  }}
+                >
+                  더보기
+                </Button>
               </div>
             </>
           }
