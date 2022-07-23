@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import Modal from './Modal';
+
 function App() {
 	let [clickedIdx, setClickedIdx] = useState(0);
 	let [modal, setModal] = useState(false);
@@ -16,6 +18,10 @@ function App() {
 		copy.unshift(content);
 		setBlogList(copy);
 	};
+	const modalCheck = () => {
+		setModal(false);
+	};
+
 	return (
 		<>
 			<div className="blog">
@@ -79,19 +85,15 @@ function App() {
 				</div>
 			</div>
 
-			{modal ? <Modal clickedIdx={clickedIdx} blogList={blogList} /> : null}
+			{modal ? (
+				<Modal
+					clickedIdx={clickedIdx}
+					blogList={blogList}
+					onCheck={modalCheck}
+				/>
+			) : null}
 		</>
 	);
 }
 
 export default App;
-
-function Modal(props) {
-	return (
-		<div className="modal h-100">
-			<h4>{props.blogList[props.clickedIdx]}</h4>
-			<p>날짜</p>
-			<p>내용</p>
-		</div>
-	);
-}
