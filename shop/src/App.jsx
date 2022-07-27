@@ -73,6 +73,7 @@ function App() {
                           );
                         })
                     : shoes.map((e, i) => {
+                        console.log(shoes);
                         return (
                           <>
                             {console.log(e.id)}

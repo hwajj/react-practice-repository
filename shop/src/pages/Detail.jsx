@@ -52,6 +52,7 @@ function Detail(props) {
       <div className='row'>
         <div className='col-md-6'>
           <img
+            style={{ width: '100%' }}
             src={`${process.env.PUBLIC_URL}/assets/shoes${id}.jpeg`}
             alt=''
           />

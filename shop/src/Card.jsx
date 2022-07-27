@@ -3,9 +3,13 @@ import styles from './Card.module.css';
 
 function Card(props) {
   const { id, title, content } = props.item;
+  console.log(id);
+  console.log(title);
+  console.log(content);
   return (
-    <div>
+    <div style={{ height: '300px', margin: '10px' }}>
       <img
+        className={styles.image}
         src={`${process.env.PUBLIC_URL}/assets/shoes${id}.jpeg`}
         width='80%'
         alt={content}
