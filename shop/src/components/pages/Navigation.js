@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
+import styles from './Navigation.module.css';
 
 function Navigation(props) {
   const currentRoute = useLocation().pathname;
@@ -8,41 +9,42 @@ function Navigation(props) {
   return (
     <div>
       <Navbar bg='dark' variant='dark'>
-        <Container>
-          <Nav className='me-auto'>
-            <Link
-              className={
-                currentRoute.endsWith('/')
-                  ? 'nav-link navbar-brand'
-                  : 'nav-link'
-              }
-              to='/'
-            >
-              홈
-            </Link>
-            {/* <Link className='nav-link' to='/detail'>
+        <Container style={{ display: 'block' }}>
+          <Nav className={`me-auto ${styles.navbars}`}>
+            <div className={`${styles.home}`}>
+              <Link
+                style={{ margin: '0px' }}
+                className={`nav-link ${
+                  currentRoute.endsWith('/') ? 'navbar-brand' : ''
+                }`}
+                to='/'
+              >
+                홈
+              </Link>
+            </div>
+            <div className={`${styles.menu}`}>
+              {/* <Link className='nav-link' to='/detail'>
               상세페이지
             </Link> */}
-            <Link
-              className={
-                currentRoute.includes('login')
-                  ? 'nav-link navbar-brand'
-                  : 'nav-link'
-              }
-              to='/login'
-            >
-              로그인
-            </Link>
-            <Link
-              className={
-                currentRoute.includes('about')
-                  ? 'nav-link navbar-brand'
-                  : 'nav-link'
-              }
-              to='/about'
-            >
-              회사
-            </Link>
+              <Link
+                style={{ margin: '0px' }}
+                className={`nav-link ${
+                  currentRoute.includes('about') ? 'navbar-brand' : ''
+                }`}
+                to='/about'
+              >
+                About
+              </Link>
+              <Link
+                style={{ margin: '0px' }}
+                className={`nav-link ${
+                  currentRoute.includes('login') ? 'navbar-brand' : ''
+                }`}
+                to='/login'
+              >
+                로그인
+              </Link>
+            </div>
             {/* <Nav.Link
               onClick={() => {
                 props.navigate(-1);

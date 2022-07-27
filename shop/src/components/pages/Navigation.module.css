@@ -1,0 +1,22 @@
+.navbars {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container {
+  display: block;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.menu a {
+  display: block;
+  width: 100px;
+  margin: 0 30px;
+}
