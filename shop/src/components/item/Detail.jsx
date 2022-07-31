@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Nav } from 'react-bootstrap';
@@ -29,11 +29,20 @@ let InputBox = styled.input`
 `;
 
 function Detail(props) {
-  const cartCtx = useContext(CartContext);
-
-  let { id } = useParams();
+  let amountRef = useRef();
   let shoesList = props.shoes;
+  let { id } = useParams();
   const shoes = shoesList.filter((shoes) => shoes.id == id)[0];
+  const cartCtx = useContext(CartContext);
+  const addToCartHandler = (amount) => {
+    cartCtx.addItem({
+      id: shoes.id,
+      name: shoes.title,
+      amount: amountRef.current.value,
+      price: shoes.price,
+    });
+  };
+
   return (
     <div className='container'>
       <DiscountBox />
@@ -50,10 +59,10 @@ function Detail(props) {
             <h4 className='pt-5'>{shoes.title}</h4>
             <p>{shoes.content}</p>
             <p>{shoes.price}원</p>
-            <InputBox type='number' min='1' defaultValue='1' />
+            <InputBox type='number' min='1' defaultValue='1' ref={amountRef} />
           </div>
           <div>
-            <StyledBtn bg='white' color='blue'>
+            <StyledBtn bg='white' color='blue' onClick={addToCartHandler}>
               장바구니
             </StyledBtn>
             <StyledBtn bg='blue' color='white'>

@@ -10,6 +10,7 @@ import shoes_data from './data.js';
 import axios from 'axios';
 import Navigation from './components/pages/Navigation';
 import Cart from './components/Cart/Cart';
+import CartProvider from './store/CartProvider';
 
 function App() {
   const [cartShow, setCartShow] = useState(false);
@@ -39,27 +40,32 @@ function App() {
   };
 
   return (
-    <div className='App'>
-      {cartShow && (
-        <Cart onHideCart={hideCartHandler} onShowCart={showCartHandler} />
-      )}
-      <Navigation navigate={navigate} onShowCart={showCartHandler}></Navigation>
+    <CartProvider>
+      <div className='App'>
+        {cartShow && (
+          <Cart onHideCart={hideCartHandler} onShowCart={showCartHandler} />
+        )}
+        <Navigation
+          navigate={navigate}
+          onShowCart={showCartHandler}
+        ></Navigation>
 
-      <Routes>
-        <Route
-          path='/'
-          element={<Items shoes={shoes} addShoes={shoesHandler}></Items>}
-        />
+        <Routes>
+          <Route
+            path='/'
+            element={<Items shoes={shoes} addShoes={shoesHandler}></Items>}
+          />
 
-        <Route path='/login' element={<Login />} />
-        <Route path='/detail/:id' element={<Detail shoes={shoes} />} />
-        <Route path='/about' element={<About />}>
-          <Route path='member' element={<div>멤버</div>} />
-          <Route path='location' element={<div>회사위치</div>} />
-        </Route>
-        <Route path='*' element={<div>없는 페이지 입니다</div>} />
-      </Routes>
-    </div>
+          <Route path='/login' element={<Login />} />
+          <Route path='/detail/:id' element={<Detail shoes={shoes} />} />
+          <Route path='/about' element={<About />}>
+            <Route path='member' element={<div>멤버</div>} />
+            <Route path='location' element={<div>회사위치</div>} />
+          </Route>
+          <Route path='*' element={<div>없는 페이지 입니다</div>} />
+        </Routes>
+      </div>
+    </CartProvider>
   );
 }
 

@@ -1,0 +1,54 @@
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid grey;
+  padding: 1rem 0;
+  margin: 1rem 0;
+}
+
+.cart-item p {
+  margin: 0 0 0.5rem 0;
+  font-weight: bold;
+  width: 200px;
+  font-size: 17px;
+}
+
+.price {
+  font-weight: bold;
+  color: black;
+}
+
+.amount {
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  color: #363636;
+}
+
+.receipt {
+  width: 28%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputPlusMinus {
+  display: flex;
+  justify-content: space-between;
+  width: 110px;
+  height: 29px;
+  position: relative;
+  border: 1px solid #ccc;
+
+  overflow: hidden;
+}
+
+.inputPlusMinus .minus,
+.inputPlusMinus .plus {
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+@media (min-width: 768px) {
+}

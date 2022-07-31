@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 import styles from './Navigation.module.css';
 import CartButton from '../Cart/CartButton';
-
 function Navigation(props) {
   const currentRoute = useLocation().pathname;
 

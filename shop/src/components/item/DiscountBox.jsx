@@ -4,7 +4,8 @@ import styled from 'styled-components';
 let StyledBox = styled.div`
   margin: 20px;
   color: white;
-  font-size: 30px;
+  font-size: 27px;
+  line-height: 1.1;
   box-shadow: 2px 2px 2px black;
   text-align: center;
   padding-top: 23px;
@@ -42,7 +43,7 @@ const DiscountBox = (props) => {
 
   return hide == false ? (
     <StyledBox className='discountBox block'>
-      {count}초 이내 사라집니다
+      {count}초 이내 클릭 시 50% 할인
     </StyledBox>
   ) : null;
 };
