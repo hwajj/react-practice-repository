@@ -9,8 +9,10 @@ import About from './components/pages/About';
 import shoes_data from './data.js';
 import axios from 'axios';
 import Navigation from './components/pages/Navigation';
+import Cart from './components/Cart/Cart';
 
 function App() {
+  const [cartShow, setCartShow] = useState(false);
   let navigate = useNavigate();
   let [shoes, setSheos] = useState(shoes_data);
   //  let [titleArrange, setTitleArrange] = useState(false);
@@ -27,9 +29,21 @@ function App() {
         console.log(shoes);
       });
   }
+
+  const showCartHandler = () => {
+    setCartShow(true);
+  };
+
+  const hideCartHandler = () => {
+    setCartShow(false);
+  };
+
   return (
     <div className='App'>
-      <Navigation navigate={navigate}></Navigation>
+      {cartShow && (
+        <Cart onHideCart={hideCartHandler} onShowCart={showCartHandler} />
+      )}
+      <Navigation navigate={navigate} onShowCart={showCartHandler}></Navigation>
 
       <Routes>
         <Route

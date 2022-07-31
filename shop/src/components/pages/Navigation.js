@@ -2,10 +2,11 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
 import styles from './Navigation.module.css';
+import CartButton from '../Cart/CartButton';
 
 function Navigation(props) {
   const currentRoute = useLocation().pathname;
-  console.log(useLocation());
+
   return (
     <div>
       <Navbar bg='dark' variant='dark'>
@@ -23,9 +24,6 @@ function Navigation(props) {
               </Link>
             </div>
             <div className={`${styles.menu}`}>
-              {/* <Link className='nav-link' to='/detail'>
-              상세페이지
-            </Link> */}
               <Link
                 style={{ margin: '0px' }}
                 className={`nav-link ${
@@ -44,22 +42,9 @@ function Navigation(props) {
               >
                 로그인
               </Link>
-            </div>
-            {/* <Nav.Link
-              onClick={() => {
-                props.navigate(-1);
-              }}
-            >
-              뒤로가기
-            </Nav.Link>
 
-            <Nav.Link
-              onClick={() => {
-                props.navigate('./detail');
-              }}
-            >
-              상세페이지(Navigate사용)
-            </Nav.Link> */}
+              <CartButton onShowCart={props.onShowCart} />
+            </div>
           </Nav>
         </Container>
       </Navbar>

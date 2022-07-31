@@ -129,7 +129,7 @@ function Login(props) {
             value={emailState.value}
             onChange={emailChangeHandler}
             onBlur={emailBlurHandler}
-            placeholder='이메일 형식으로 입력해주세요'
+            placeholder='아이디(이메일)'
           />
         </div>
         <div

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Nav } from 'react-bootstrap';
+import TabComponent from './TabComponent';
+import TabMenu from './TabMenu';
 
 let StyledBtn = styled.button`
   background: ${(props) => props.bg};
@@ -24,10 +26,21 @@ let DiscountBox = styled.div`
   width: 30%;
   height: 100px;
 `;
+
+let InputBox = styled.input`
+  display: flex;
+  alignitems: center;
+  marginbottom: 0.5rem;
+  width: 3rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font: inherit;
+  padding-left: 0.5rem;
+`;
+
 function Detail(props) {
   let [hide, setHide] = useState(false);
   let [count, setCount] = useState(2);
-  let [tabNum, setTabNum] = useState(0);
 
   useEffect(() => {
     setTimeout(() => {
@@ -58,84 +71,25 @@ function Detail(props) {
           />
         </div>
         <div className='col-md-6 mt-4s'>
-          <h4 className='pt-5'>{shoes.title}</h4>
-          <p>{shoes.detail}</p>
-          <p>{shoes.price}원</p>
-
-          <StyledBtn
-            bg='white'
-            color='blue'
-            onClick={() => {
-              console.log('재렌더링');
-              setCount(count + 1);
-            }}
-          >
-            장바구니
-          </StyledBtn>
-          <StyledBtn bg='blue' color='white'>
-            바로 주문
-          </StyledBtn>
+          <div>
+            <h4 className='pt-5'>{shoes.title}</h4>
+            <p>{shoes.content}</p>
+            <p>{shoes.price}원</p>
+            <InputBox type='number' min='1' defaultValue='1' />
+          </div>
+          <div>
+            <StyledBtn bg='white' color='blue'>
+              장바구니
+            </StyledBtn>
+            <StyledBtn bg='blue' color='white'>
+              바로 주문
+            </StyledBtn>
+          </div>
         </div>
       </div>
-      <Nav variant='tabs' defaultActiveKey='link0'>
-        <Nav.Item>
-          <Nav.Link
-            onClick={() => {
-              setTabNum(0);
-            }}
-            eventKey='link0'
-          >
-            버튼0
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link
-            onClick={() => {
-              setTabNum(1);
-            }}
-            eventKey='link1'
-          >
-            버튼1
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link
-            onClick={() => {
-              setTabNum(2);
-            }}
-            eventKey='link2'
-          >
-            버튼2
-          </Nav.Link>
-        </Nav.Item>
-      </Nav>
-      <TabComponent num={tabNum} />
+      <TabMenu />
     </div>
   );
 }
 
 export default Detail;
-
-function TabComponent({ num }) {
-  let [classNm, setClassNm] = useState('');
-  // if (num === 0) return <div>내용0</div>;
-  // if (num === 1) return <div>내용1</div>;
-  // if (num === 2) return <div>내용2</div>;
-  useEffect(() => {
-    let a = setTimeout(() => {
-      setClassNm('end');
-    }, 10);
-    return () => {
-      clearTimeout(a);
-      setClassNm('');
-    };
-  }, [num]);
-
-  return (
-    <>
-      <div className={`start ${classNm}`}>
-        {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][num]};
-      </div>
-    </>
-  );
-}
