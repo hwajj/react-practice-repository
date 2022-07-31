@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Nav } from 'react-bootstrap';
 import TabComponent from './TabComponent';
 import TabMenu from './TabMenu';
+import CartContext from '../../store/cart-context';
+import DiscountBox from './DiscountBox';
 
 let StyledBtn = styled.button`
   background: ${(props) => props.bg};
@@ -13,18 +15,6 @@ let StyledBtn = styled.button`
   border-radius: 5px;
   border: 1px solid ${(props) => props.color};
   width: 100px;
-`;
-
-let DiscountBox = styled.div`
-  margin: 20px;
-  color: white;
-  font-size: 30px;
-  box-shadow: 2px 2px 2px black;
-  text-align: center;
-  padding-top: 23px;
-  background: lightsteelblue;
-  width: 30%;
-  height: 100px;
 `;
 
 let InputBox = styled.input`
@@ -39,29 +29,14 @@ let InputBox = styled.input`
 `;
 
 function Detail(props) {
-  let [hide, setHide] = useState(false);
-  let [count, setCount] = useState(2);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setHide(true);
-    }, 2000);
-  });
-
-  setTimeout(() => {
-    setCount(1);
-  }, 1000);
+  const cartCtx = useContext(CartContext);
 
   let { id } = useParams();
   let shoesList = props.shoes;
   const shoes = shoesList.filter((shoes) => shoes.id == id)[0];
   return (
     <div className='container'>
-      {hide == false ? (
-        <DiscountBox className='discountBox block'>
-          {count} 초 이내 구입 시 할인
-        </DiscountBox>
-      ) : null}
+      <DiscountBox />
       <div className='row'>
         <div className='col-md-6'>
           <img
