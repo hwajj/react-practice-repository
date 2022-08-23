@@ -7,9 +7,10 @@ import Detail from './pages/Detail';
 import About from './pages/About';
 import shoes_data from './data.js';
 import axios from 'axios';
+import Cart from './pages/Cart';
 
 function App() {
-  let [shoes, setSheos] = useState(shoes_data);
+  let [shoes, setShoes] = useState(shoes_data);
   let [titleArrange, setTitleArrange] = useState(false);
   let navigate = useNavigate();
 
@@ -73,10 +74,8 @@ function App() {
                           );
                         })
                     : shoes.map((e, i) => {
-                        console.log(shoes);
                         return (
                           <>
-                            {console.log(e.id)}
                             <Link to={`/detail/${e.id}`} className='col-md-4'>
                               <Card item={e} key={i} />
                             </Link>
@@ -95,7 +94,7 @@ function App() {
                         let newShoes = result.data.filter(
                           (e) => idList.indexOf(e.id) < 0
                         );
-                        setSheos([...tmpSheos, ...newShoes]);
+                        setShoes([...tmpSheos, ...newShoes]);
                       })
                       .catch(() => {
                         console.log(shoes);
@@ -114,6 +113,7 @@ function App() {
           <Route path='member' element={<div>멤버</div>} />
           <Route path='location' element={<div>회사위치</div>} />
         </Route>
+        <Route path='/cart' element={<Cart />} />
         <Route path='*' element={<div>없는 페이지 입니다</div>} />
       </Routes>
     </div>
