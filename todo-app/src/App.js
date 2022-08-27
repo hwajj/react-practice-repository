@@ -13,7 +13,6 @@ function createBulkTodos() {
       checked: false,
     });
   }
-  console.log(array);
   return array;
 }
 
@@ -22,37 +21,28 @@ const App = () => {
 
   const nextId = useRef(2501);
 
-  const onInsertHandler = useCallback(
-    (text) => {
-      const todo = {
-        id: nextId.current,
-        text,
-        checked: false,
-      };
+  const onInsertHandler = useCallback((text) => {
+    const todo = {
+      id: nextId.current,
+      text,
+      checked: false,
+    };
 
-      setTodos(todos.concat(todo));
-      nextId.current++;
-    },
-    [todos],
-  );
+    setTodos((todos) => todos.concat(todo));
+    nextId.current++;
+  }, []);
 
-  const onRemoveHandler = useCallback(
-    (id) => {
-      setTodos(todos.filter((todo) => todo.id !== id));
-    },
-    [todos],
-  );
+  const onRemoveHandler = useCallback((id) => {
+    setTodos((todos) => todos.filter((todo) => todo.id !== id));
+  }, []);
 
-  const onToggleHandler = useCallback(
-    (id) => {
-      setTodos(
-        todos.map((todo) =>
-          todo.id === id ? { ...todo, checked: !todo.checked } : todo,
-        ),
-      );
-    },
-    [todos],
-  );
+  const onToggleHandler = useCallback((id) => {
+    setTodos((todos) =>
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+      ),
+    );
+  }, []);
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsertHandler} />
