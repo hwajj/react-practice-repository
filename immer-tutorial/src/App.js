@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef } from 'react';
+import produce from 'immer';
 
 const App = () => {
   const [form, setForm] = useState({ name: '', username: '' });
@@ -10,14 +11,18 @@ const App = () => {
   const onChange = useCallback(
     (e) => {
       const { name, value } = e.target;
-      setForm({
-        ...form,
-        [name]: [value],
-      });
+      setForm(
+        // { ...form,
+        // [name]: [value] }
+        produce(form, (form) => {
+          form[name] = value;
+        })
+      );
     },
     [form]
   );
 
+  //form 등록을 위한 함수
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
@@ -27,11 +32,15 @@ const App = () => {
         username: form.username,
       };
 
-      setData({
-        ...data,
-        array: data.array.concat(info),
-      });
+      // array에 새 항목 등록
+      setData(
+        //  { ...data, array: data.array.concat(info) }
+        produce(data, (data) => {
+          data.array.push(info);
+        })
+      );
 
+      //form 초기화
       setForm({
         name: '',
         username: '',
@@ -41,12 +50,20 @@ const App = () => {
     [data, form.name, form.username]
   );
 
+  // 항목을 삭제하는 함수
   const onRemove = useCallback(
     (id) => {
-      setData({
-        ...data,
-        array: data.array.filter((info) => info.id !== id),
-      });
+      setData(
+        // {...data,
+        // array: data.array.filter((info) => info.id !== id),    }
+
+        produce(data, (data) => {
+          data.array.splice(
+            data.array.findIndex((info) => info.id === id),
+            1
+          );
+        })
+      );
     },
     [data]
   );
