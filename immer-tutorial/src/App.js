@@ -8,19 +8,16 @@ const App = () => {
   const nextId = useRef(1);
 
   //input 수정을 위한 함수
-  const onChange = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setForm(
-        // { ...form,
-        // [name]: [value] }
-        produce(form, (form) => {
-          form[name] = value;
-        })
-      );
-    },
-    [form]
-  );
+  const onChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setForm(
+      // { ...form,
+      // [name]: [value] }
+      produce((form) => {
+        form[name] = value;
+      })
+    );
+  }, []);
 
   //form 등록을 위한 함수
   const onSubmit = useCallback(
@@ -35,7 +32,7 @@ const App = () => {
       // array에 새 항목 등록
       setData(
         //  { ...data, array: data.array.concat(info) }
-        produce(data, (data) => {
+        produce((data) => {
           data.array.push(info);
         })
       );
@@ -47,26 +44,23 @@ const App = () => {
       });
       nextId.current++;
     },
-    [data, form.name, form.username]
+    [form.name, form.username]
   );
 
   // 항목을 삭제하는 함수
-  const onRemove = useCallback(
-    (id) => {
-      setData(
-        // {...data,
-        // array: data.array.filter((info) => info.id !== id),    }
+  const onRemove = useCallback((id) => {
+    setData(
+      // {...data,
+      // array: data.array.filter((info) => info.id !== id),    }
 
-        produce(data, (data) => {
-          data.array.splice(
-            data.array.findIndex((info) => info.id === id),
-            1
-          );
-        })
-      );
-    },
-    [data]
-  );
+      produce((data) => {
+        data.array.splice(
+          data.array.findIndex((info) => info.id === id),
+          1
+        );
+      })
+    );
+  }, []);
 
   return (
     <div>
