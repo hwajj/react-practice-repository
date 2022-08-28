@@ -1,4 +1,5 @@
 # 리액트를 다루는 기술 
+
 ## 10장 일정관리 웹 애플리케이션 만들기
 
 ### Component
@@ -10,14 +11,14 @@
 
 - TodoInsert : 새로운 항목을 입력하고 추가할수있는 컴포넌트. state통해 input의 상태 관리
 
-
+#
 ### useCallback
 - TodoInsert 컴포넌트에서 인풋을 useState로 관리할 때 값을 input에 onChange를 걸어서 setState한다. 이때 onChange 함수를 useCallback 으로 감싸서 리렌더링될때마다 함수가 다시 만들어지는 것을 방지한다. useCallback의 의존성 배열에 있는 값이 변할때마다 함수가 재생성된다. TodoInsert가 props로 받는 함수와 state로 관리하는 변수를 의존성 배열에 넣었다.
 
 
 
-
-
+#
+#  
 ## 11장 컴포넌트 성능 최적화
 
 ### 많은 데이터 렌더링하기 
@@ -41,8 +42,9 @@ const App = () => {
   const nextId = useRef(2501);
 
 ```
-useState 안에 넣는 초기값에 함수 createBulkTodos() 라고 넣지 않고, createBulkTodos  함수를 넣으면 컴포넌트가 처음 렌더링 될 때만 createBulkTodos 함수가 실행된다.
-
+useState 안에 넣는 초기값에 함수 createBulkTodos() 라고 넣지 않고, createBulkTodos  함수를 넣으면 컴포넌트가 처음 렌더링 될 때만 createBulkTodos 함수가 실행된다.             
+#  
+#   
 ### 느려지는 원인
 리렌더링이 발생하는 상황은 다음과 같다.
 - 자신이 전달받은 props가 변경될 때 
@@ -51,6 +53,9 @@ useState 안에 넣는 초기값에 함수 createBulkTodos() 라고 넣지 않�
 - forceUpdate함수가 실행될 때 
 현재 1개만 클릭해도 나머지 2499개가 모두 리렌더링 되는상황. TodoListItem컴포넌트가 받은 props (todo) 가  바뀌지 않았을 때도 리렌더링 되는 것이 문제이다.
 
+
+#  
+
 ### React.memo를 사용하여 컴포넌트 성능 최적화
 - react.memo는 컴포넌트에 들어가는 모든 props를 확인한 뒤, 이를 기존의 props 값과 비교하도록 리액트에 전달한다.
 그리고 props의 값이 바뀐 경우에만 컴포넌트를 재실행 및 재평가 한다.
@@ -58,11 +63,13 @@ useState 안에 넣는 초기값에 함수 createBulkTodos() 라고 넣지 않�
 재실행되지 않는 자식컴포넌트에 포함된 다른 컴포넌트들도 재실행되지 않는다.
 
 
-### 함수형 setState로 useCallback 의존성 배열 수정
+#  
+
+### 함수가 계속 만들어지는 상황 방지하는 방법 - 1. 함수형 setState 사용
 setState함수의 인자로 **상태** 대신 이전 상태를 전달하여 상태를 업데이트하는 **함수** 를 넣어준다.
 
 - 리팩토링 전  
-    setState(todos 배열)
+  setState(todos 배열)
     
     ```
     const onRemoveHandler = useCallback(
@@ -76,7 +83,7 @@ setState함수의 인자로 **상태** 대신 이전 상태를 전달하여 상�
     todos 배열 상태를 기준으로 update= todos가 바뀔때마다 useCallback 함수 재생성 해서 setState 안의 상태 업데이트해야함  
     \=> 의존성 배열에 todos 넣음
 
-    
+
 
 - 리팩토링 후  
     setState(todos 이전상태를 전달하여 상태를 업데이트 하는 함수)
@@ -92,3 +99,29 @@ setState함수의 인자로 **상태** 대신 이전 상태를 전달하여 상�
     
     바로 이전상태를 전달하여 상태를 업데이트 한다 = todos 바껴도 이전 상태를 기준으로 업데이트 하는 함수는 바뀌지 않음  
     \=> 의존성 배열에 todos 넣을 필요 없음
+
+
+#  
+
+
+### 함수가 계속 만들어지는 상황 방지하는 방법 - 2. useReducer 사용
+  
+ -
+    ```  
+    const [todos, dispatch] = useReducer(todoReducer, undefined, createBulkTodos);
+    ```
+
+- todoReducer는 reducer함수,
+  dispatch는 reducer함수를 호출하는 함수 
+
+
+- 두번째 파라미터에 undefined , 세번째 파라미터에 초기상태를 만들어주는 함수 넣어주면 컴포넌트가 맨 처음 렌더링될 때만 함수가 호출된다.
+
+
+#  
+
+### react-visualized 사용
+- List 컴포넌트 
+  - index, key, style 값을 객체타입으로 받아오는 함수 rowRenderer 를 props로 전달. 
+  - rowRenderer 외에도 List의 전체크기, 높이, 항목개수, 항목높이, 배열, style을 props로 전달한다.
+  - 하위 컴포넌트에서 기존에 보여주던 내용을 div로 한번 더 감싸고, props로 받아온 style을 적용한다. div로 감싸는 과정에서 깨진 스타일을 수정한다.
