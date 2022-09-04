@@ -48,7 +48,7 @@ function todos(state = initialState, action) {
       return {
         ...state,
         todos: state.todos.map((todo) =>
-          todo.id === action.todo ? { ...todo, done: !todo.done } : todo
+          todo.id === action.id ? { ...todo, done: !todo.done } : todo
         ),
       };
     case REMOVE:
