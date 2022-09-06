@@ -2,12 +2,21 @@ import { connect } from 'react-redux';
 //import { bindActionCreators } from 'redux';
 
 import Counter from '../components/Counter';
-import { increase, decrease } from '../modules/counter';
+//import { increase, decrease } from '../modules/counter';
+//1초뒤에 디스패치하는 함수
+import { increaseAsync, decreaseAsync } from '../modules/counter';
 
 //connect 함수 사용
-const CounterContainer = ({ number, increase, decrease }) => {
+const CounterContainer = ({ number, increaseAsync, decreaseAsync }) => {
   return (
-    <Counter number={number} onIncrease={increase} onDecrease={decrease} />
+    // <Counter number={number} onIncrease={increase} onDecrease={decrease} />
+    <Counter
+      number={number}
+      //   onIncrease={increase}
+      onIncrease={increaseAsync}
+      //   onDecrease={decrease}
+      onDecrease={decreaseAsync}
+    />
   );
 };
 
@@ -47,12 +56,12 @@ const CounterContainer = ({ number, increase, decrease }) => {
 // )(CounterContainer);
 
 // mapDispatchToProps생략 -> 내부적으로 bindActionCreators동작
-export default connect(
-  (state) => ({
-    number: state.counter.number,
-  }),
-  { increase, decrease }
-)(CounterContainer);
+//export default connect(
+//   (state) => ({
+//     number: state.counter.number,
+//   }),
+//   { increaseA, decrease }
+// )(CounterContainer);
 
 //useSelector 사용
 // const CounterContainer = () => {
@@ -67,3 +76,10 @@ export default connect(
 // };
 
 // export default CounterContainer;
+
+export default connect(
+  (state) => ({
+    number: state.counter,
+  }),
+  { increaseAsync, decreaseAsync }
+)(CounterContainer);
