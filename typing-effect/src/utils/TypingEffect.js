@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-const TypingEffectV2 = ({ message = '' }) => {
+const TypingEffectBad = ({ message = '' }) => {
 	const paragraphRef = useRef(null)
 	console.log(message)
 	useEffect(() => {
@@ -22,14 +22,8 @@ const TypingEffectV2 = ({ message = '' }) => {
 			paragraphRef.current = ''
 		}
 	}, [message])
-	const Content = () => (
-		<>
-			<p ref={paragraphRef} />
-		</>
-	)
-	return Content
-	
-	// return 	<p ref={paragraphRef} />
+
+	return <p ref={paragraphRef} />
 }
 
-export default TypingEffectV2
+export default React.memo(TypingEffectBad)

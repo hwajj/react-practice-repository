@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 
-const TypingEffectV2 = ({ message = '' }) => {
+const TypingEffect = ({ message = '' }) => {
 	const paragraphRef = useRef(null)
 	console.log(message)
 	useEffect(() => {
@@ -22,8 +22,14 @@ const TypingEffectV2 = ({ message = '' }) => {
 			paragraphRef.current = ''
 		}
 	}, [message])
-
-	return <p ref={paragraphRef} />
+	const Content = () => (
+		<>
+			<p ref={paragraphRef} />
+		</>
+	)
+	return Content
+	
+	// return 	<p ref={paragraphRef} />
 }
 
-export default (TypingEffectV2)
+export default TypingEffect

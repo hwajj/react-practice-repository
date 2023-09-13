@@ -1,0 +1,67 @@
+$breakpoint-mobile-mini-h: 570px;
+$breakpoint-mobile-medium-h: 670px;
+$breakpoint-mobile-large-h: 770px;
+
+$breakpoint-mobile: 375px;
+$breakpoint-tablet: 758px;
+$breakpoint-desktop: 1024px;
+
+@mixin mobile-mini {
+	@media (max-height: #{$breakpoint-mobile-mini-h}) {
+		@content;
+	}
+}
+
+@mixin max-mobile-medium {
+	@media (max-height: #{$breakpoint-mobile-medium-h}) {
+		@content;
+	}
+}
+
+@mixin min-mobile-medium {
+	@media (min-height: #{$breakpoint-mobile-medium-h}) {
+		@content;
+	}
+}
+
+@mixin mobile-large {
+	@media (max-height: #{$breakpoint-mobile-large-h}) {
+		@content;
+	}
+}
+
+@mixin min-mobile-large {
+	@media (min-height: #{$breakpoint-mobile-large-h}) {
+		@content;
+	}
+}
+
+@mixin mobile-mini {
+	@media (min-width: #{0}) and (max-width: #{$breakpoint-mobile - 1px}) {
+		@content;
+	}
+}
+
+@mixin mobile {
+	@media (min-width: #{$breakpoint-mobile}) and (max-width: #{$breakpoint-tablet - 1px}) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media (min-width: #{$breakpoint-tablet}) and (max-width: #{$breakpoint-desktop - 1px}) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media (min-width: #{$breakpoint-desktop}) {
+		@content;
+	}
+}
+
+@mixin kiosk {
+	@media (min-width: #{$breakpoint-desktop}) and (aspect-ratio: 9/16) {
+		@content;
+	}
+}
